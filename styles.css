@@ -1,0 +1,15 @@
+.main {
+  display: flex;
+  justify-content: center;
+}
+
+.result {
+  margin-top: 50px;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: xxx-large;
+}
+
+.eventWrapper {
+  margin-top: 10px;
+}
