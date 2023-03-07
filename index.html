@@ -14,13 +14,13 @@
       <div v-if="upcomingEvents.length > 0" class="eventWrapper">
         Upcoming Events:
         <div v-for="event in upcomingEvents">
-          <span class="event"><a href="{{ event.url }}">{{ event.title }}</a></span>
+          <span class="event"><a :href="event.url" target="_blank">{{ event.title }}</a></span>
         </div>
       </div>
       <div v-if="pastEvents.length > 0" class="eventWrapper">
         Past events:
         <div v-for="event in pastEvents">
-          <span class="event"><a href="{{ event.url }}">{{ event.title }}</a></span>
+          <span class="event"><a :href="event.url" target="_blank">{{ event.title }}</a></span>
         </div>
       </div>
       
