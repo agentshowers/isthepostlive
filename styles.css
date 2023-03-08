@@ -13,3 +13,14 @@
 .eventWrapper {
   margin-top: 10px;
 }
+
+.imageWrapper {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.biscuit {
+  max-width: 500px;
+}

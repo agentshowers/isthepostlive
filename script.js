@@ -1,4 +1,6 @@
 TODAY = (new Date()).setHours(0, 0, 0, 0);
+BISCUIT_PICS = 4;
+IMAGE_UPDATE_INTERVAL = 10000;
 
 function parseDate(title) {
   try {
@@ -28,6 +30,7 @@ const App = {
       upcomingEvents: [],
       pastEvents: [],
       loaded: false,
+      picIndex: 0
     }
   },
 
@@ -56,10 +59,15 @@ const App = {
       xhr.open("GET", "https://www.reddit.com/r/londonsocialclub/new.json?limit=100");
       xhr.send();
     },
+
+    updateImage() {
+      this.picIndex = (this.picIndex + 1) % BISCUIT_PICS;
+    },
   },
 
   created() {
     this.getPosts();
+    setInterval(() => this.updateImage(), IMAGE_UPDATE_INTERVAL);
   }
 }
 
