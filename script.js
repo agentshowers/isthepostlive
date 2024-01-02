@@ -1,6 +1,6 @@
 TODAY = (new Date()).setHours(0, 0, 0, 0);
-BISCUIT_PICS = 4;
-IMAGE_UPDATE_INTERVAL = 10000;
+BISCUIT_PICS = 11;
+IMAGE_UPDATE_INTERVAL = 5000;
 
 function parseDate(title) {
   try {
@@ -41,7 +41,7 @@ const App = {
         if (xhr.readyState == 4 && xhr.status == 200) {
           let response = JSON.parse(xhr.responseText);
           let events = response.data.children;
-          let boardgames = events.filter(e => e.data.author.toLowerCase() === "bullseye_bailey" && e.data.title.toLowerCase().includes("boardgames"));
+          let boardgames = events.filter(e => e.data.title.toLowerCase().includes("boardgames @"));
           boardgames.forEach(bg => {
             let title = bg.data.title;
             let date = parseDate(title);
@@ -50,10 +50,21 @@ const App = {
             } else {
               this.upcomingEvents.push({ title: bg.data.title, url: bg.data.url });
             }
-            this.text = this.upcomingEvents.length > 0 ? "Yes!" : "No!";
-            this.loaded = true;
           })
-          
+          this.pastEvents.sort((a, b) => parseDate(b.title) - parseDate(a.title));
+          this.pastEvents = this.pastEvents.slice(0, 4);
+          if (this.upcomingEvents.length > 0) {
+            this.text = "Yes!";
+            let subtext = "His lordship Adam has graced us with the following post";
+            if (this.upcomingEvents.length > 1) {
+              subtext += "s";
+            }
+            this.subtext = subtext;
+          } else {
+            this.text = "No!";
+            this.subtext = "Adam is being lazy. Here are some pets to cheer you up.";
+          }
+          this.loaded = true;
         }
       }.bind(this);
       xhr.open("GET", "https://www.reddit.com/r/londonsocialclub/new.json?limit=100");
@@ -61,12 +72,13 @@ const App = {
     },
 
     updateImage() {
-      this.picIndex = (this.picIndex + 1) % BISCUIT_PICS;
+      this.picIndex = Math.floor(Math.random() * BISCUIT_PICS);
     },
   },
 
   created() {
     this.getPosts();
+    this.updateImage();
     setInterval(() => this.updateImage(), IMAGE_UPDATE_INTERVAL);
   }
 }

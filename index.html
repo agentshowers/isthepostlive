@@ -8,24 +8,32 @@
 </head>
 
 <body>
-  <div id="app" class="main">
-    <div v-if="loaded">
-      <div class="result"><h1>{{ text }}</h1></div>
-      <div v-if="upcomingEvents.length > 0" class="eventWrapper">
-        Upcoming Events:
+  <div id="app">
+    <div v-if="loaded" class="main">
+      <div class="result">
+        <div class="title">
+          <h1>{{ text }}</h1>
+        </div>
+        <h2>{{ subtext }}</h2>
+      </div>
+      <div v-if="upcomingEvents.length > 0" class="upcomingEvents">
         <div v-for="event in upcomingEvents">
           <span class="event"><a :href="event.url" target="_blank">{{ event.title }}</a></span>
         </div>
-      </div>
-      <div v-if="pastEvents.length > 0" class="eventWrapper">
-        Past events:
-        <div v-for="event in pastEvents">
-          <span class="event"><a :href="event.url" target="_blank">{{ event.title }}</a></span>
+        <div class="imageWrapper">
+          <img class="image" src="king.jpg" />
         </div>
       </div>
-      
-      <div class="imageWrapper">
-        <img class="biscuit" :src="'biscuitpics/' + picIndex + '.jpg'" />
+      <div v-else>
+        <div class="imageWrapper">
+          <img class="image" :src="'biscuitpics/' + picIndex + '.jpg'" />
+        </div>
+      </div>
+      <div v-if="pastEvents.length > 0" class="pastEvents">
+        Past events:
+        <div v-for="event in pastEvents" class="event">
+          <a :href="event.url" target="_blank">{{ event.title }}</a>
+        </div>
       </div>
     </div>
     <div v-else>
