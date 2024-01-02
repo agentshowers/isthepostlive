@@ -61,7 +61,7 @@ const App = {
             }
             this.subtext = subtext;
           } else {
-            this.text = "No!";
+            this.text = "Not yet!";
             this.subtext = "Adam is being lazy. Here are some pets to cheer you up.";
           }
           this.loaded = true;
